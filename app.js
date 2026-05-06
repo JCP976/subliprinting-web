@@ -150,19 +150,27 @@ document.addEventListener('DOMContentLoaded', () => {
             productData = data.map(p => {
                 let parsedFeatures = [p.descripcion];
                 if (p.features) {
-                    try { 
-                        let parsed = JSON.parse(p.features);
-                        if (!Array.isArray(parsed)) parsed = [parsed.toString()];
-                        parsedFeatures = parsed;
+                    if (Array.isArray(p.features)) {
+                        parsedFeatures = p.features;
+                    } else {
+                        try { 
+                            let parsed = JSON.parse(p.features);
+                            if (!Array.isArray(parsed)) parsed = [parsed.toString()];
+                            parsedFeatures = parsed;
+                        }
+                        catch(e) { 
+                            if (typeof p.features === 'string') {
+                                parsedFeatures = p.features.split(',').map(s => s.trim()).filter(f => f); 
+                            }
+                        }
                     }
-                    catch(e) { parsedFeatures = p.features.split(',').map(s => s.trim()); }
                 }
                 return {
                     id: p.id,
                     name: p.nombre,
                     category: p.categoria,
                     price: p.precio_texto || `$${p.precio} MXN`,
-                    basePrice: p.precio,
+                    basePrice: parseFloat(p.precio) || 0,
                     badge: p.badge || "",
                     fabric: p.fabric || "N/A",
                     features: parsedFeatures,
