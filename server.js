@@ -26,30 +26,12 @@ const pool = new Pool({
 
 app.use(express.json());
 app.use(cors());
+
+// Log Middleware
 app.use((req, res, next) => {
     console.log(`${new Date().toLocaleString()} - ${req.method} ${req.url}`);
     next();
 });
-
-// For backward compatibility while migrating, keep static local uploads if needed
-app.use(express.static(path.join(__dirname))); 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
-// Multer in-memory storage for Supabase upload
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
-
-// Database Initialization Helper (Optional for Postgres, but good to have)
-const initDb = async () => {
-    try {
-        const client = await pool.connect();
-        console.log("Connected to the PostgreSQL database (Supabase).");
-        client.release();
-    } catch (err) {
-        console.error("Error connecting to the database:", err.message);
-    }
-};
-initDb();
 
 // ======================================================================
 //                              MIDDLEWARES
@@ -79,9 +61,16 @@ const hasRole = (roles) => {
     };
 };
 
+// Multer in-memory storage for Supabase upload
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
 // ======================================================================
-//                              API ROUTES
+//                              API ROUTES (PRIORITY)
 // ======================================================================
+
+// Health check
+app.get('/api/health', (req, res) => res.json({ status: 'ok', database: 'connected' }));
 
 // --- NOTIFICACIONES ---
 app.get('/api/notificaciones', verifyToken, async (req, res) => {
@@ -144,6 +133,10 @@ app.post('/api/register', async (req, res) => {
         res.status(400).json({ error: "El email ya está registrado o datos inválidos" });
     }
 });
+
+// --- STATIC FILES (FALLBACK) ---
+app.use(express.static(path.join(__dirname))); 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.put('/api/perfil', verifyToken, upload.single('foto_perfil'), async (req, res) => {
     const { nombre, password, telefono, fecha_nacimiento } = req.body;
