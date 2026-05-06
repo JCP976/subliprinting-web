@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SubliPrinting | Productos Turísticos y Personalizados</title>
+    <meta name="description"
+        content="Personaliza playeras, tazas y gorras con calidad premium. Expertos en productos turísticos y Subliprinting.">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div id="notification-bar" style="display:none; position:fixed; top:0; left:0; width:100%; background:var(--primary); color:white; padding:10px; text-align:center; z-index:9999; cursor:pointer;" onclick="this.style.display='none'">
+        <i class="fas fa-bell"></i> <span id="notification-text">Nueva Notificación</span>
+    </div>
+    <div id="landing-view">
+        <!-- Navbar -->
+        <header class="navbar" id="navbar">
+            <div class="logo">
+                <a href="#"><img class="subli" src="images/subliprinting.png" alt="SubliPrinting"></a>
+            </div>
+            <nav class="nav-menu" id="nav-menu">
+                <ul>
+                    <li><a href="#inicio" class="active">Inicio</a></li>
+                    <li><a href="#productos">Productos</a></li>
+                    <li><a href="#nosotros">Nosotros</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                    <li><button id="nav-login-btn" class="btn-primary"
+                            style="padding: 0.4rem 1rem; margin-left:1rem; font-size: 0.9rem;"><i
+                                class="fas fa-lock"></i> Portal</button></li>
+                </ul>
+            </nav>
+            <div class="nav-icons">
+                <div class="theme-toggle" id="theme-toggle" title="Cambiar a Modo Oscuro"
+                    style="cursor: pointer; font-size: 1.25rem; margin-right: 20px; color: var(--text-dark); transition: var(--transition);">
+                    <i class="fas fa-moon"></i>
+                </div>
+                <div class="cart-icon" id="cart-icon-btn">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count">0</span>
+                </div>
+                <div class="hamburger" id="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section id="inicio" class="hero">
+            <div class="hero-carousel" id="hero-carousel">
+                <div class="carousel-slide active">
+                    <img src="images/marlin.png" alt="Diseño Turístico Marlin">
+                </div>
+                <div class="carousel-slide">
+                    <img src="images/tortuga fucsia.png" alt="Diseño Turístico Tortuga">
+                </div>
+                <div class="carousel-slide">
+                    <img src="images/diving.png" alt="Diseño Turístico Buceo">
+                </div>
+
+                <button class="carousel-prev" id="carousel-prev"><i class="fas fa-chevron-left"></i></button>
+                <button class="carousel-next" id="carousel-next"><i class="fas fa-chevron-right"></i></button>
+
+                <div class="carousel-indicators" id="carousel-indicators">
+                    <span class="indicator active" data-slide="0"></span>
+                    <span class="indicator" data-slide="1"></span>
+                    <span class="indicator" data-slide="2"></span>
+                </div>
+            </div>
+            <div class="hero-content carousel-overlay">
+                <div class="cta-buttons fade-in delay-2">
+                    <a href="#productos" class="btn-primary">Ver Catálogo</a>
+                    <a href="#contacto" class="btn-secondary"
+                        style="background:var(--white); color:var(--secondary); border:none;">Cotizar Proyecto</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Productos Section -->
+        <section id="productos" class="productos">
+            <div class="section-title">
+                <h2>Nuestros Productos</h2>
+                <p>Descubre todo lo que podemos hacer por tu negocio o marca</p>
+            </div>
+
+            <div class="products-controls">
+                <!-- Pestañas (Tabs) de Categorías -->
+                <div class="tabs-container" id="filters">
+                    <button class="tab-btn active" data-filter="subliprinting">
+                        <i class="fas fa-tshirt"></i> Productos Subliprinting
+                    </button>
+                    <button class="tab-btn" data-filter="turisticos">
+                        <i class="fas fa-umbrella-beach"></i> Productos Turísticos
+                    </button>
+                </div>
+
+                <!-- Buscador Automático -->
+                <div class="search-container" style="max-width: 450px; margin: 0 auto;">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="search-input" placeholder="Buscar productos y detalles...">
+                    <div class="search-suggestions" id="search-suggestions"></div>
+                </div>
+            </div>
+
+            <!-- Grid de Productos -->
+            <div class="products-grid" id="products-grid">
+                <!-- Cards generadas por JS -->
+            </div>
+
+            <div id="no-results" class="no-results hidden">
+                <i class="fas fa-box-open"></i>
+                <p>No se encontraron resultados para tu búsqueda.</p>
+            </div>
+        </section>
+
+        <!-- Nosotros Section -->
+        <section id="nosotros" class="nosotros">
+            <div class="nosotros-content obs-reveal">
+                <h2>Nuestra Misión</h2>
+                <p>En SubliPrinting transformamos ideas en productos personalizados excepcionales. Nos distinguimos por
+                    ofrecer acabados de calidad premium, combinando materiales duraderos y técnicas de impresión
+                    precisas
+                    para todo tipo de souvenirs turísticos y producción masiva.</p>
+                <div class="features">
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fas fa-medal"></i></div>
+                        <h3>Calidad Superior</h3>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fas fa-gem"></i></div>
+                        <h3>Telas Premium</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="nosotros-image obs-scale">
+                <div class="about-card">
+                    <i class="fas fa-handshake"
+                        style="font-size: 4rem; color: var(--primary); margin-bottom: 20px;"></i>
+                    <h3>Trato Personalizado</h3>
+                    <p>Nuestra prioridad es la excelencia en cada hilo, en cada tinta y en cada impresión que entregamos
+                        a
+                        nuestros clientes.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Proceso Section -->
+        <section id="proceso" class="proceso">
+            <div class="section-title obs-reveal">
+                <h2>Cómo Trabajamos</h2>
+                <p>Un proceso simple y transparente para personalizar tus productos.</p>
+            </div>
+            <div class="process-grid">
+                <div class="process-step obs-scale delay-100">
+                    <div class="step-icon"><i class="fas fa-clipboard-list"></i></div>
+                    <h3>1. Cotización</h3>
+                    <p>Eliges tus productos y cantidades desde nuestro catálogo interactivo.</p>
+                </div>
+                <div class="process-step obs-scale delay-200">
+                    <div class="step-icon"><i class="fas fa-paint-roller"></i></div>
+                    <h3>2. Diseño</h3>
+                    <p>Envías tu logo o solicitud, y te mandamos una muestra digital del resultado final.</p>
+                </div>
+                <div class="process-step obs-scale delay-300">
+                    <div class="step-icon"><i class="fas fa-industry"></i></div>
+                    <h3>3. Producción</h3>
+                    <p>Imprimimos con la mejor calidad del mercado bajo un estricto control de detalles.</p>
+                </div>
+                <div class="process-step obs-scale delay-400">
+                    <div class="step-icon"><i class="fas fa-box-open"></i></div>
+                    <h3>4. Entrega</h3>
+                    <p>Enviamos tu pedido hiper-protegido hasta la puerta de tu hogar o empresa nacional.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonios Section -->
+        <section id="testimonios" class="testimonios">
+            <div class="section-title obs-reveal">
+                <h2>Lo Que Dicen Nuestros Clientes</h2>
+                <p>Descubre por qué somos la opción preferida de decenas de negocios rentables.</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card obs-reveal delay-100">
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                            class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="feedback">"Impresionante calidad en las tazas corporativas que pedimos para nuestro evento
+                        aniversario. No perdieron el brillo tras meses de uso, los recomiendo 100% por su rapidez y
+                        ética."</p>
+                    <div class="client-info">
+                        <div class="client-avatar">A</div>
+                        <div>
+                            <h4>Alejandro T.</h4>
+                            <span>Agencia de Publicidad</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card obs-reveal delay-200">
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                            class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="feedback">"Pedí una corrida de playeras turísticas dry-fit para la playa y mis clientes
+                        están encantados. El sublimado está súper nítido, la tela muy fresca y resistente al sol
+                        agrabdable."</p>
+                    <div class="client-info">
+                        <div class="client-avatar">M</div>
+                        <div>
+                            <h4>Mariana R.</h4>
+                            <span>Tienda de Souvenirs</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card obs-reveal delay-300">
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                            class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="feedback">"Muy puntuales en los tiempos de logística con la entrega. Me sorprendió el
+                        bordado en las gorras que hicimos para el staff del antro. Definitivamente volveremos a
+                        encargarles."</p>
+                    <div class="client-info">
+                        <div class="client-avatar">D</div>
+                        <div>
+                            <h4>Daniel S.</h4>
+                            <span>Restaurante & Bar</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="faq">
+            <div class="section-title obs-reveal">
+                <h2>Preguntas Frecuentes</h2>
+                <p>Resuelve tus dudas al instante con SubliPrinting.</p>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item obs-reveal delay-100">
+                    <div class="faq-question">
+                        <h3>¿Cuál es el tiempo de entrega de un pedido?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>El tiempo promedio es de 5 a 10 días hábiles dependiendo del volumen de tu pedido y de la
+                            técnica aplicada. Para urgencias o "Fast Track", podemos platicarlo directamente por
+                            WhatsApp para ajustarnos a tus fechas límite.</p>
+                    </div>
+                </div>
+                <div class="faq-item obs-reveal delay-200">
+                    <div class="faq-question">
+                        <h3>¿Tienen envíos a todo México?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sí, trabajamos colaborativamente con paqueterías a nivel nacional como DHL, Estafeta y FedEx
+                            (así como nivel peninsular/internacional) para asegurar que tu mercancía personalizada
+                            llegue sana y salva.</p>
+                    </div>
+                </div>
+                <div class="faq-item obs-reveal delay-300">
+                    <div class="faq-question">
+                        <h3>¿Es posible solicitar una muestra antes de la producción mayorista?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Por supuesto, y de hecho es nuestro estándar. Ofrecemos de entrada una muestra digital
+                            (render) sin costo y, si tú lo requieres y necesitas tocar las telas o texturas, podemos
+                            hacerte una muestra física con un costo de insumo que será descontado del saldo total si se
+                            aprueba tu corrida final masiva.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contacto Section -->
+        <section id="contacto" class="contacto">
+            <div class="section-title obs-reveal">
+                <h2>Hagamos Equipo</h2>
+                <p>Formulario rápido o usa nuestros datos directos para tu proyecto.</p>
+            </div>
+            <div class="contact-container obs-reveal">
+                <div class="contact-form-wrapper">
+                    <h3 style="margin-bottom:20px; font-size: 1.5rem;">Cuéntanos de tu pedido</h3>
+                    <form id="contact-form" class="contact-form">
+                        <div class="form-row">
+                            <div class="form-group half-width">
+                                <label for="fname">Nombre</label>
+                                <input type="text" id="fname" placeholder="Tu nombre..." required>
+                            </div>
+                            <div class="form-group half-width">
+                                <label for="femail">Correo</label>
+                                <input type="email" id="femail" placeholder="hola@ejemplo.com" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="fmsg">Mensaje o Detalles del Proyecto</label>
+                            <textarea id="fmsg" placeholder="Me interesa cotizar 100 playeras..." rows="5"
+                                required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary w-100"><i class="fas fa-paper-plane"></i> Enviar a
+                            Ventas</button>
+                    </form>
+                </div>
+
+                <div class="info-card">
+                    <h3 style="margin-bottom:20px;">Ventas y Atención</h3>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>subliprinting@outlook.com</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>+52 1 999 233 3539</span>
+                    </div>
+                    <div class="social-links mt-3" style="margin-bottom: 1.5rem;">
+                        <a href="https://www.facebook.com/share/18kwpG3iHw/"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/subliprinting.mid?igsh=OWR5ODhjMnd3dmtx"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+
+                    <h5 style="margin-bottom:10px; font-weight: 500;">Ven a visitarnos:</h5>
+                    <div class="map-wrapper"
+                        style="width: 100%; height: 250px; border-radius: 12px; overflow: hidden; margin-top: 1rem; border: 1px solid var(--border); display: block; position: relative;">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4558.630508961315!2d-89.57777924885569!3d21.024344111556623!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f567716506db045%3A0x837dc517dee4d4a6!2sSubli%20Printing!5e0!3m2!1ses!2smx!4v1774886341527!5m2!1ses!2smx"
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+                            allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="logo">Subli<span>printing</span></div>
+                <p>&copy; 2026. Todos los derechos reservados.</p>
+            </div>
+        </footer>
+
+        <!-- Cart Drawer -->
+        <div class="cart-drawer" id="cart-drawer">
+            <div class="cart-header">
+                <h3>Tu Carrito</h3>
+                <button id="close-cart"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="cart-items" id="cart-items">
+                <!-- Items injected by JS -->
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cart-total-amount">$0.00 MXN</span>
+                </div>
+                <button id="checkout-btn" class="btn-primary w-100" disabled>Proceder con la compra</button>
+            </div>
+        </div>
+
+        <!-- Checkout Modal -->
+        <div class="checkout-modal" id="checkout-modal">
+            <div class="checkout-content" id="checkout-form-wrapper">
+                <div class="checkout-header">
+                    <h3>Finalizar Compra</h3>
+                    <button class="icon-btn" id="close-checkout-modal"><i class="fas fa-times"></i></button>
+                </div>
+                <form id="inner-checkout-form" class="contact-form" style="margin-top: 1rem;">
+                    <div class="form-group">
+                        <label for="co-name">Nombre Completo</label>
+                        <input type="text" id="co-name" placeholder="Tu nombre..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="co-email">Correo Electrónico</label>
+                        <input type="email" id="co-email" placeholder="tu@correo.com" required>
+                    </div>
+                    <button type="submit" id="process-order-btn" class="btn-primary w-100" style="padding: 15px;"><i
+                            class="fas fa-lock"></i> Pagar Ahora</button>
+                </form>
+            </div>
+        </div>
+
+    </div> <!-- End Landing View -->
+
+    <!-- ==============================================
+         PORTAL LOGIN MODAL
+         ============================================== -->
+    <div class="checkout-modal" id="login-modal">
+        <div class="checkout-content">
+            <div class="checkout-header">
+                <h3>Acceso al Portal</h3>
+                <button class="icon-btn" id="close-login-modal"><i class="fas fa-times"></i></button>
+            </div>
+
+            <div class="tabs-container"
+                style="justify-content: flex-start; gap: 1rem; margin: 1rem 0; border-bottom: 2px solid var(--border); padding-bottom: 0;">
+                <button class="tab-btn active" id="tab-login-view" style="margin-bottom: -2px;">Ingresar</button>
+                <button class="tab-btn" id="tab-register-view" style="margin-bottom: -2px;">Crear Cuenta</button>
+            </div>
+
+            <div id="login-view-container">
+                <form id="login-form" class="contact-form">
+                    <div class="form-group">
+                        <label for="login-email">Correo Electrónico</label>
+                        <input type="email" id="login-email" placeholder="usuario@correo.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-pass">Contraseña</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="login-pass" placeholder="••••••••" required>
+                            <i class="fas fa-eye toggle-password" data-target="login-pass"></i>
+                        </div>
+                    </div>
+                    <div id="login-error" style="color: #ff4757; font-size: 0.85rem; margin-bottom: 1rem; display: none;">
+                        Credenciales incorrectas.</div>
+                    <button type="submit" id="submit-login-btn" class="btn-primary w-100"><i class="fas fa-sign-in-alt"></i> Entrar</button>
+                </form>
+                <div style="font-size: 0.8rem; color: var(--text-light); margin-top: 1rem; text-align: center;">
+                    <strong>Usuarios de prueba (Contraseña para todos: 123456):</strong><br>
+                    cliente@... | admin@... | diseno@gmail.com | produccion@... | superadmin@...
+                </div>
+            </div>
+
+            <div id="register-view-container" class="hidden">
+                <form id="register-form" class="contact-form">
+                    <div class="form-group">
+                        <label for="reg-name">Nombre Completo</label>
+                        <input type="text" id="reg-name" placeholder="Tu nombre..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-email">Correo Electrónico</label>
+                        <input type="email" id="reg-email" placeholder="tu@correo.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-pass">Contraseña</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="reg-pass" placeholder="Crea una contraseña..." required>
+                            <i class="fas fa-eye toggle-password" data-target="reg-pass"></i>
+                        </div>
+                    </div>
+                    <div id="register-error" style="color: #ff4757; font-size: 0.85rem; margin-bottom: 1rem; display: none;">Error al registrarse.</div>
+                    <div id="register-success" style="color: #2ed573; font-size: 0.85rem; margin-bottom: 1rem; display: none;">Cuenta creada exitosamente.</div>
+                    <button type="submit" id="submit-register-btn" class="btn-secondary w-100" style="margin-top: 10px;"><i class="fas fa-user-plus"></i> Registrarse</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==============================================
+         EDIT PRODUCT MODAL
+         ============================================== -->
+    <div class="checkout-modal" id="edit-product-modal">
+        <div class="checkout-content">
+            <div class="checkout-header">
+                <h3>Editar Producto</h3>
+                <button class="icon-btn" id="close-edit-modal"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="edit-product-form" class="contact-form" style="margin-top: 1rem;">
+                <input type="hidden" id="edit-prod-id">
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input type="text" id="edit-prod-nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Precio ($)</label>
+                        <input type="number" step="0.01" id="edit-prod-precio" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Categoría</label>
+                        <select id="edit-prod-categoria" style="width:100%; padding:0.8rem; border:1px solid var(--border); border-radius:8px;" required>
+                            <option value="subliprinting">Subliprinting</option>
+                            <option value="turisticos">Turísticos</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Etiqueta (Badge)</label>
+                        <select id="edit-prod-badge" style="width:100%; padding:0.8rem; border:1px solid var(--border); border-radius:8px;">
+                            <option value="">Ninguna</option>
+                            <option value="Nuevo">Nuevo</option>
+                            <option value="Popular">Popular</option>
+                            <option value="Oferta">Oferta</option>
+                            <option value="Destacado">Destacado</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Material / Tela</label>
+                        <input type="text" id="edit-prod-fabric">
+                    </div>
+                    <div class="form-group">
+                        <label>Características (comas)</label>
+                        <input type="text" id="edit-prod-features">
+                    </div>
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label>Nueva Imagen (Opcional)</label>
+                        <input type="file" id="edit-prod-imagen" accept="image/*" onchange="previewImage(event, 'preview-edit-prod')">
+                        <img id="preview-edit-prod" style="max-height: 150px; display: none; margin-top: 10px; border-radius: 8px;">
+                        <small style="color:var(--text-light); display:block; margin-top:5px;">Deja vacío para mantener la imagen actual.</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Descripción</label>
+                    <textarea id="edit-prod-desc" rows="2" style="width:100%; padding:0.8rem; border:1px solid var(--border); border-radius:8px;" required></textarea>
+                </div>
+                <button type="submit" id="save-edit-btn" class="btn-primary w-100"><i class="fas fa-save"></i> Guardar Cambios</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==============================================
+         PROFILE MODAL
+         ============================================== -->
+    <div class="checkout-modal" id="profile-modal">
+        <div class="checkout-content">
+            <div class="checkout-header">
+                <h3>Mi Perfil</h3>
+                <button class="icon-btn" id="close-profile-modal"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="profile-form" class="contact-form" style="margin-top: 1rem;">
+                <div class="form-group" style="text-align: center; margin-bottom: 1rem;">
+                    <img id="perfil-foto-preview" src="https://placehold.co/80x80/1E293B/ffffff?text=User" style="width:80px; height:80px; border-radius:50%; object-fit:cover; margin-bottom:5px; display:inline-block;">
+                    <br>
+                    <label style="cursor:pointer; color:var(--primary);">
+                        <i class="fas fa-camera"></i> Cambiar Foto
+                        <input type="file" id="perfil-foto" accept="image/*" style="display:none;" onchange="previewImage(event, 'perfil-foto-preview')">
+                    </label>
+                </div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem;">
+                    <div class="form-group">
+                        <label>Rol</label>
+                        <input type="text" id="perfil-rol" disabled style="background:var(--bg-light); cursor:not-allowed;">
+                    </div>
+                    <div class="form-group">
+                        <label>Correo</label>
+                        <input type="email" id="perfil-email" disabled style="background:var(--bg-light); cursor:not-allowed;">
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom: 1rem;">
+                    <label>Nombre Completo</label>
+                    <input type="text" id="perfil-nombre" required>
+                </div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem;">
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="tel" id="perfil-telefono">
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha de Nacimiento</label>
+                        <input type="date" id="perfil-fecha-nacimiento">
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label>Nueva Contraseña</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="perfil-password" placeholder="Dejar en blanco para no cambiar">
+                        <i class="fas fa-eye toggle-password" data-target="perfil-password"></i>
+                    </div>
+                </div>
+                <button type="submit" id="save-profile-btn" class="btn-primary w-100"><i class="fas fa-save"></i> Guardar Cambios</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==============================================
+         CHAT GRUPAL MODAL (EMPLEADOS)
+         ============================================== -->
+    <div class="checkout-modal" id="chat-modal">
+        <div class="checkout-content" style="max-width: 900px; width:95%; padding:0; display:flex; height:600px; overflow:hidden;">
+            <!-- Sidebar (Contacts) -->
+            <div style="width: 250px; background:var(--white); border-right:1px solid var(--border); display:flex; flex-direction:column; flex-shrink: 0;">
+                <div style="padding:15px; background:var(--primary); color:white; display:flex; justify-content:space-between; align-items:center;">
+                    <h4 style="margin:0;">Mensajes</h4>
+                    <button class="icon-btn" id="close-chat-modal" style="color:white;"><i class="fas fa-times"></i></button>
+                </div>
+                <form id="chat-search-form" style="padding:10px; border-bottom:1px solid var(--border); background:var(--bg-light); display:flex; gap:5px; margin:0;">
+                    <input type="text" id="chat-search-users" placeholder="Buscar empleado..." style="flex:1; padding:8px 12px; border-radius:20px; border:1px solid var(--border); outline:none; font-family:inherit;">
+                    <button type="submit" style="background:none; border:none; color:var(--primary); cursor:pointer; padding:0 10px; font-size:1.2rem;"><i class="fas fa-search"></i></button>
+                </form>
+                <div id="chat-contacts-list" style="flex:1; overflow-y:auto; background:var(--white);">
+                    <!-- Contacts will be injected here -->
+                </div>
+            </div>
+            
+            <!-- Chat Area -->
+            <div style="flex:1; display:flex; flex-direction:column; background-color: #efeae2; background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png'); position:relative;">
+                <div style="padding:15px; background:var(--bg-light); border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; height:60px;">
+                    <strong id="chat-active-name" style="color:var(--text); font-size:1.1rem;">Chat Grupal</strong>
+                    <button class="icon-btn" onclick="window.closeActiveChat()" style="color:var(--text-light); font-size:1rem;" title="Cerrar chat actual"><i class="fas fa-sign-out-alt"></i></button>
+                </div>
+                <div id="chat-messages" style="flex:1; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 10px;">
+                    <!-- Messages -->
+                </div>
+                <div style="padding:10px; background:var(--bg-light);">
+                    <form id="chat-form" style="display:flex; gap: 10px; align-items:center; margin:0;">
+                        <label style="cursor:pointer; color:var(--text-light); font-size:1.5rem;" title="Adjuntar Archivo">
+                            <i class="fas fa-paperclip"></i>
+                            <input type="file" id="chat-file" style="display:none;">
+                        </label>
+                        <input type="text" id="chat-input" placeholder="Escribe un mensaje..." style="flex:1; padding:0.8rem; border:1px solid var(--border); border-radius:20px; outline:none; font-family: inherit;">
+                        <button type="button" id="chat-record-btn" style="background:none; border:none; cursor:pointer; color:var(--text-light); font-size:1.5rem;" title="Grabar Voz"><i class="fas fa-microphone"></i></button>
+                        <button type="submit" class="btn-primary" style="border-radius:50%; width:45px; height:45px; padding:0; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                    <div id="chat-file-preview" style="display:none; font-size:0.8rem; color:var(--primary); margin-top:5px; padding-left:40px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==============================================
+         CLIENT DASHBOARD VIEW
+         ============================================== -->
+    <div id="client-dashboard" class="dashboard-wrapper hidden">
+        <aside class="glass-sidebar">
+            <div class="sidebar-logo">Subli<span>printing</span> <span
+                    style="font-size:0.5em; background:var(--primary); padding:2px 8px; border-radius:10px; color:#fff;">Portal</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="active"><i class="fas fa-cloud-upload-alt"></i> Subir Diseños</a>
+                <a href="#" class="btn-perfil"><i class="fas fa-user"></i> Mi Perfil</a>
+            </nav>
+            <button class="btn-secondary w-100" id="logout-cliente-btn" style="margin-top:auto;"><i
+                    class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
+        </aside>
+        <main class="dashboard-main">
+            <header class="dash-header">
+                <h2>Hola, <span id="client-name-display">Nombre</span></h2>
+                <div class="theme-toggle" title="Cambiar a Modo Oscuro" style="cursor: pointer; font-size: 1.25rem;"><i
+                        class="fas fa-moon" id="dash-moon"></i></div>
+            </header>
+
+            <div class="dash-content">
+                <div class="glass-card">
+                    <h3>Sube tu Archivo de Diseño</h3>
+                    <p style="color: var(--text-light); margin-bottom: 1.5rem;">Aceptamos PNG, SVG, AI o PDF. Deja que
+                        nuestro equipo verifique la resolución.</p>
+
+                    <div class="upload-zone" id="upload-zone">
+                        <i class="fas fa-cloud-upload-alt"
+                            style="font-size: 4rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                        <h4>Arrastra tu archivo aquí</h4>
+                        <p style="color: var(--text-light); margin-bottom: 1rem;">O haz clic para seleccionar (Máx 50MB)
+                        </p>
+                        <button class="btn-secondary" id="simulate-select-file">Seleccionar Archivo</button>
+                        <input type="file" id="real-file-input" style="display:none;"
+                            accept=".png,.jpg,.jpeg,.pdf,.ai,.svg">
+                    </div>
+                </div>
+
+                <div class="upload-progress-card hidden" id="upload-progress-card">
+                    <h4>Subiendo archivo: <span id="file-name-display"
+                            style="font-weight: 500; color: var(--primary);">archivo.pdf</span></h4>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="upload-progress-bar"></div>
+                    </div>
+                    <p id="upload-status-text"
+                        style="font-size: 0.85rem; margin-top: 0.5rem; text-align: right; color: var(--text-light);">0%
+                    </p>
+                </div>
+
+                <!-- Client Orders Status List -->
+                <div class="glass-card" style="margin-top: 2rem;">
+                    <h3><i class="fas fa-history" style="color:var(--primary); margin-right: 10px;"></i> Mis Diseños
+                        Activos</h3>
+                    <div class="table-responsive" style="margin-top:1.5rem;">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Archivo</th>
+                                    <th>Fecha de Envío</th>
+                                    <th>Estado Resuelto</th>
+                                </tr>
+                            </thead>
+                            <tbody id="client-orders-body">
+                                <!-- Filas inyectadas por JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- ==============================================
+         ADMIN DASHBOARD VIEW
+         ============================================== -->
+    <div id="admin-dashboard" class="dashboard-wrapper hidden">
+        <aside class="glass-sidebar admin-sidebar">
+            <div class="sidebar-logo">Subli<span>Admin</span></div>
+            <nav class="sidebar-nav">
+                <a href="#" class="active"><i class="fas fa-chart-line"></i> Estadísticas y Pedidos</a>
+                <a href="#"><i class="fas fa-box"></i> Productos</a>
+                <a href="#" class="btn-chat"><i class="fas fa-comments"></i> Chat Grupal</a>
+                <a href="#" class="btn-perfil"><i class="fas fa-user"></i> Mi Perfil</a>
+            </nav>
+            <button class="btn-secondary w-100" id="logout-admin-btn" style="margin-top:auto;"><i
+                    class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
+        </aside>
+        <main class="dashboard-main">
+            <header class="dash-header">
+                <h2>Hola, <span id="admin-name-display">Nombre</span></h2>
+            </header>
+
+            <div class="dash-content">
+                <div class="glass-card">
+                    <h3 style="margin-bottom: 1.5rem;">Gestión de Pedidos Globales</h3>
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Cliente</th>
+                                    <th>Detalles</th>
+                                    <th>Fecha</th>
+                                    <th>Estado</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-table-body">
+                                <!-- Filas inyectadas por JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Product Management System -->
+                <div class="glass-card" style="margin-top: 2rem;">
+                    <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-box"
+                            style="color:var(--primary); margin-right: 10px;"></i> Agregar al Catálogo Púbico</h3>
+                    <form id="admin-product-form" class="contact-form">
+                        <div
+                            style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                            <div class="form-group">
+                                <label>Nombre del Producto</label>
+                                <input type="text" id="add-prod-nombre" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Precio Base ($)</label>
+                                <input type="number" step="0.01" id="add-prod-precio" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Categoría</label>
+                                <select id="add-prod-categoria"
+                                    style="width:100%; padding:0.8rem; border:1px solid var(--border); border-radius:8px;"
+                                    required>
+                                    <option value="subliprinting">Subliprinting (Tazas/Textil)</option>
+                                    <option value="turistico">Producto Turístico</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Etiqueta Especial (Badge)</label>
+                                <select id="add-prod-badge" style="width:100%; padding:0.8rem; border:1px solid var(--border); border-radius:8px;">
+                                    <option value="">Ninguna</option>
+                                    <option value="Nuevo">Nuevo</option>
+                                    <option value="Popular">Popular</option>
+                                    <option value="Oferta">Oferta</option>
+                                    <option value="Destacado">Destacado</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Material / Tela</label>
+                                <input type="text" id="add-prod-fabric" placeholder="Ej: Poliéster Dry-Fit">
+                            </div>
+                            <div class="form-group">
+                                <label>Características (separadas por coma)</label>
+                                <input type="text" id="add-prod-features" placeholder="Ej: Frescura, Secado rápido">
+                            </div>
+                            <div class="form-group" style="grid-column: 1 / -1;">
+                                <label>Imagen del Producto</label>
+                                <input type="file" id="add-prod-imagen" accept="image/*" required onchange="previewImage(event, 'preview-add-prod')">
+                                <img id="preview-add-prod" style="max-height: 150px; display: none; margin-top: 10px; border-radius: 8px;">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Detalles / Descripción</label>
+                            <textarea id="add-prod-desc" rows="3"
+                                style="width:100%; padding:0.8rem; border:1px solid var(--border); border-radius:8px;"
+                                required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary" id="add-prod-btn">Publicar en Página
+                            Principal</button>
+                    </form>
+                </div>
+
+                <!-- Product List System -->
+                <div class="glass-card" style="margin-top: 2rem;">
+                    <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-list" style="color:var(--primary); margin-right: 10px;"></i> Gestión de Productos en Catálogo</h3>
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Imagen</th>
+                                    <th>Nombre</th>
+                                    <th>Categoría</th>
+                                    <th>Precio</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-products-body">
+                                <!-- Filas inyectadas por JS -->
+                            </tbody>
+                        </table>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Superadmin Extras (Hidden for Normal Admins) -->
+                <div id="superadmin-extras" class="hidden">
+                    <div class="glass-card" style="margin-top: 2rem;">
+                        <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-users" style="color:var(--primary); margin-right: 10px;"></i> Gestión de Usuarios</h3>
+                        <div class="table-responsive">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nombre</th>
+                                        <th>Email</th>
+                                        <th>Rol</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="superadmin-users-body">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="glass-card" style="margin-top: 2rem;">
+                        <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-paint-brush" style="color:var(--primary); margin-right: 10px;"></i> Bandeja de Diseños Global</h3>
+                        <div class="table-responsive">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Cliente / Archivo</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="superadmin-diseno-body">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="glass-card" style="margin-top: 2rem;">
+                        <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-industry" style="color:var(--primary); margin-right: 10px;"></i> Cola de Producción Global</h3>
+                        <div class="table-responsive">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Cliente</th>
+                                        <th>Detalles</th>
+                                        <th>Estado Producción</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="superadmin-produccion-body">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- ==============================================
+         DISEÑO DASHBOARD VIEW
+         ============================================== -->
+    <div id="diseno-dashboard" class="dashboard-wrapper hidden">
+        <aside class="glass-sidebar admin-sidebar">
+            <div class="sidebar-logo">Subli<span>Diseño</span></div>
+            <nav class="sidebar-nav">
+                <a href="#" class="active"><i class="fas fa-paint-brush"></i> Bandeja de Diseños</a>
+                <a href="#" class="btn-chat"><i class="fas fa-comments"></i> Chat Grupal</a>
+                <a href="#" class="btn-perfil"><i class="fas fa-user"></i> Mi Perfil</a>
+            </nav>
+            <button class="btn-secondary w-100" id="logout-diseno-btn" style="margin-top:auto;"><i
+                    class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
+        </aside>
+        <main class="dashboard-main">
+            <header class="dash-header">
+                <h2>Hola, <span id="diseno-name-display">Nombre</span></h2>
+            </header>
+
+            <div class="dash-content">
+                <div class="glass-card">
+                    <h3 style="margin-bottom: 1.5rem;">Pedidos Pendientes de Diseño</h3>
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Cliente</th>
+                                    <th>Detalles</th>
+                                    <th>Estado</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="diseno-table-body">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="glass-card" style="margin-top: 2rem;">
+                    <h3>Diseños de Clientes Recientes</h3>
+                    <div class="table-responsive" style="margin-top:1.5rem;">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Archivo</th>
+                                    <th>Estado Aprobación</th>
+                                    <th>Aprobar / Rechazar</th>
+                                </tr>
+                            </thead>
+                            <tbody id="disenos-files-body">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ==============================================
+         PRODUCCION DASHBOARD VIEW
+         ============================================== -->
+    <div id="produccion-dashboard" class="dashboard-wrapper hidden">
+        <aside class="glass-sidebar admin-sidebar">
+            <div class="sidebar-logo">Subli<span>Prod</span></div>
+            <nav class="sidebar-nav">
+                <a href="#" class="active"><i class="fas fa-industry"></i> Cola de Producción</a>
+                <a href="#" class="btn-chat"><i class="fas fa-comments"></i> Chat Grupal</a>
+                <a href="#" class="btn-perfil"><i class="fas fa-user"></i> Mi Perfil</a>
+            </nav>
+            <button class="btn-secondary w-100" id="logout-produccion-btn" style="margin-top:auto;"><i
+                    class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
+        </aside>
+        <main class="dashboard-main">
+            <header class="dash-header">
+                <h2>Hola, <span id="produccion-name-display">Nombre</span></h2>
+            </header>
+
+            <div class="dash-content">
+                <div class="glass-card">
+                    <h3 style="margin-bottom: 1.5rem;">Pedidos Aprobados (Listos para fabricar)</h3>
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Cliente</th>
+                                    <th>Detalles</th>
+                                    <th>Estado Producción</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="produccion-table-body">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+
+    <!-- Custom Scripts -->
+    <script src="app.js"></script>
+</body>
+
+</html>
